@@ -3,7 +3,6 @@ class Solution {
         int i = 0;
         int j = 1;
         int n = arr.length;
-
         while (i < n && j < n) {
             if (arr[i] % 2 == 0) {
                 i += 2; 
