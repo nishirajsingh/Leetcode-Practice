@@ -8,8 +8,7 @@ class Solution {
         return true;
     }
     public int maximumCandies(int[] candies, long k) {
-        long l=1,r=0;
-        for(int i:candies) r+=i;
+        long l=1,r=(long)10e7;
         while(l<=r){
             long mid = l+(r-l)/2;
             if(isP(candies,k,mid)) r=mid-1;
