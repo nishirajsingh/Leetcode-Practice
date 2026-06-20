@@ -32,10 +32,9 @@ class Solution {
                 if (curr.right != null) q.add(curr.right);
                 a.add(curr.val);
             }
-            level.add(a);
+            level.addFirst(a);
         }
         
-        Collections.reverse(level);
         return level;
     }
 }
