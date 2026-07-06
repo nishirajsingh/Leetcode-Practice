@@ -8,6 +8,7 @@ class Solution {
                 sb.append(c);
             }
         }
+        System.gc();
         return ispalindrome(sb.toString());
     }
     public boolean ispalindrome(String s){
