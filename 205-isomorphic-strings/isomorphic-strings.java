@@ -6,8 +6,8 @@ class Solution {
             if(s1[s.charAt(i)] != t1[t.charAt(i)]) {
                 return false;
             }
-            s1[s.charAt(i)] = i + 1;
-            t1[t.charAt(i)] = i + 1;
+            s1[s.charAt(i)] = i+1;
+            t1[t.charAt(i)] = i+1;
         }
         return true;
     }
