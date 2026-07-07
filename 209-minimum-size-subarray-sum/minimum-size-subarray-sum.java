@@ -11,7 +11,6 @@ class Solution {
                 s -= nums[j++];
             }
         }
-        System.gc();
         if(ans>n) return 0;
         return ans;
     }
