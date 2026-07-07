@@ -10,7 +10,6 @@ class Solution {
             sum+=d;
             x+=(d*i);
             i*=10;
-
         }
         return (long) sum*x;
     }
