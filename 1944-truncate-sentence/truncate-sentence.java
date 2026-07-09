@@ -4,8 +4,8 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         for(int i=0;i<k;i++){
             sb.append(a[i]);
-            sb.append(" ");
+            if(i!=k-1) sb.append(" ");
         }
-        return sb.toString().trim();
+        return sb.toString();
     }
 }
