@@ -8,7 +8,6 @@ class Solution {
             else if(moves.charAt(i)=='D')a--;
             else if(moves.charAt(i)=='R')b--;
         }
-        if(a==0 && b==0) return true;
-        return false;
+        return (a==0 && b==0);
     }
 }
