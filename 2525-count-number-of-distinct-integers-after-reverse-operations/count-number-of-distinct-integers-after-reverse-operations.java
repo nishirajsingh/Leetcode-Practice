@@ -9,11 +9,19 @@ class Solution {
         return r;
     }
     public int countDistinctIntegers(int[] nums) {
-        Set<Integer>s = new HashSet<>();
+        boolean[] c = new boolean[1000001];
+        int cnt = 0;
         for(int i=0;i<nums.length;i++){
-            s.add(nums[i]);
-            s.add(rev(nums[i]));
+            if(!c[nums[i]]){
+                cnt++;
+                c[nums[i]]=true;
+            }
+            int r = rev(nums[i]);
+            if(!c[r]){
+                cnt++;
+                c[r]=true;
+            }
         }
-        return s.size();
+        return cnt;
     }
 }
