@@ -10,17 +10,27 @@
  */
 class Solution {
     public ListNode oddEvenList(ListNode head) {
-        if(head==null || head.next==null)return head;
-        ListNode odd = head;
-        ListNode even = head.next;
-        ListNode evenh = even;
-        while(even!=null && even.next!=null){
-            odd.next = even.next;
-            odd = odd.next;
-            even.next = odd.next;
-            even = even.next;
+        ListNode temp = head;
+        ListNode dummyOdd = new ListNode(-1);
+        ListNode to = dummyOdd;
+        ListNode dummyEven = new ListNode(-1);
+        ListNode te = dummyEven;
+        int c =0;
+        while(temp!=null){
+            c++;
+            if(c%2==0){
+                te.next = temp;
+                te= te.next;
+            }
+            else{
+                to.next = temp;
+                to= to.next;
+            }
+            temp =temp.next;
         }
-        odd.next = evenh;
+        to.next = dummyEven.next;
+        te.next = null;
+        head = dummyOdd.next;
         return head;
     }
 }
