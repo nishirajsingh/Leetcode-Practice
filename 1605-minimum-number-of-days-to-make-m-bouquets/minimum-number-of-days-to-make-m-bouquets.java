@@ -3,15 +3,18 @@ class Solution {
         int t =0;
         int c = 0;
         for(int i=0;i<a.length;i++){
-            if(a[i]<=mid)c++;
+            if(a[i]<=mid){
+                c++;
+            if(c==k){
+                t++;
+                c=0;
+            }
+            }
             else {
-                t +=c/k;
                 c=0;
             }
         }
-        t+=c/k;
-        if(t<m)return false;
-        return true;
+        return t>=m;
     }
     public int minDays(int[] bloomDay, int m, int k) {
         int min=Integer.MAX_VALUE;
