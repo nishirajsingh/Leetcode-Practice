@@ -1,25 +1,33 @@
 class Solution {
     public boolean isP(int[] nums,int k, int mid){
-        int sc=1;
-        int cur=mid;
+        int currd =1;
+        int s=0;
         for(int i:nums){
-            if(cur<i){
-                sc++;
-                cur=mid;
+            if(s+i<=mid){
+                s+=i;
+            }else{
+                currd++;
+                s=i;
             }
-            cur-=i;
         }
-        if(sc<=k)return true;
-        return false;
+        return currd<=k;
+
     } 
     public int shipWithinDays(int[] weights, int days) {
-        int l=0,r=Integer.MAX_VALUE;
-        for(int i:weights) l=Math.max(l,i);
-        while(l<=r){
-            int mid =l+(r-l)/2;
-            if(isP(weights,days,mid)) r = mid-1;
+        int l=0,h=0;
+        for(int i:weights){
+            l= Math.max(l,i);
+            h+=i;
+        } 
+        int ans = 0;
+        while(l<=h){
+            int mid =l+(h-l)/2;
+            if(isP(weights,days,mid)){
+                ans = mid;
+                h = mid-1;
+            } 
             else l=mid+1;
         }
-        return l;
+        return ans;
     }
 }
