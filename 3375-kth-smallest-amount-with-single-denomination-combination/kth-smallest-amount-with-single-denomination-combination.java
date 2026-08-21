@@ -1,42 +1,43 @@
 class Solution {
-    int[] coins;
-    int k;
-    public long lcm(long a, long b) {
-        return a*b/gcd(a, b);
-    }
-    public long gcd(long a, long b) {
-        return b==0?a:gcd(b, a % b);
-    }
-    public boolean isPossible(long mx) {
-        long c=0;
-        int n=coins.length;
-        for(int i=1;i<(1<<n);i++) {
-            long v = 1;
-            for(int j=0;j<n;j++) {
-                if((i>>j&1) == 1) {
-                    v=lcm(v,coins[j]);
-                    if(v>mx) break;
-                }
-            }
-            int m = Integer.bitCount(i);
-            if(m%2 == 1) c+=mx/v;
-            else c-=mx/v;
+    long gcd(long a, long b) {
+        while (b != 0) {
+            long temp = a % b;
+            a = b;
+            b = temp;
         }
-        return c>=k;
+        return a;
     }
-    public long findKthSmallest(int[] coins, int k) {
-        this.coins = coins;
-        this.k = k;
-        long l=1,h=(long)1e11;
-        while(l<h){
-            long mid=(l+h)>>1;
-            if(isPossible(mid)){
-                h=mid;
-            }else{
-                l=mid+1;
-            }
+    long lcm(long a, long b) {
+        return (a / gcd(a, b)) * b;
+    }
+    long dfs(int index, long currentLcm, int cnt, long x, int[] coins) {
+        if (index == coins.length) {
+            if (cnt == 0) return 0;   
+            if (cnt % 2 == 1) return x / currentLcm;
+            else return -(x / currentLcm);
         }
-        return l;
+        long ans = dfs(index + 1, currentLcm, cnt, x, coins);
+        long newLcm = lcm(currentLcm, coins[index]);
+        if (newLcm <= x) {
+            ans += dfs(index + 1, newLcm, cnt + 1, x, coins);
+        }
+        return ans;
     }
 
+    long count(long x, int[] coins) {
+        return dfs(0, 1, 0, x, coins);
+    }
+
+    public long findKthSmallest(int[] coins, int k) {
+        long low = 1;
+        long high = coins[0];
+        for (int i : coins) high = Math.min(high, i);
+        high *= k;
+        while (low < high) {
+            long mid = (low + high) / 2;
+            if (count(mid, coins) >= k) high = mid;
+            else low = mid + 1;
+        }
+        return low;
+    }
 }
