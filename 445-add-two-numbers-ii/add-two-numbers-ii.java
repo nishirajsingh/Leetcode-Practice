@@ -9,32 +9,35 @@
  * }
  */
 class Solution {
+    public ListNode reverse(ListNode head){
+        ListNode temp = head;
+        ListNode prev = null;
+        while(temp!=null){
+            ListNode next = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = next;
+        }
+        return prev;
+    }
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        Stack<Integer> s1 = new Stack<>();
-        Stack<Integer> s2 = new Stack<>();
-        while(l1!=null){
-            s1.push(l1.val);
-            l1=l1.next;
-        }
-        while(l2!=null){
-            s2.push(l2.val);
-            l2=l2.next;
-        }
         int c = 0;
-        ListNode head = null;
-        while(!s1.isEmpty() || !s2.isEmpty() || c!=0) {
-            int sum = c;            
-            if(!s1.isEmpty()) {
-                sum+=s1.pop();
-            }
-            if(!s2.isEmpty()) {
-                sum+=s2.pop();
-            }
-            c=sum/10;
-            ListNode newNode = new ListNode(sum%10);
-            newNode.next=head;
-            head=newNode;
+        ListNode temp1 = reverse(l1);
+        ListNode temp2 = reverse(l2);
+        ListNode dummy = new ListNode(-1);
+        ListNode dummyTemp = dummy;
+        while(temp1!=null || temp2!=null|| c!=0){
+            int d1=0,d2=0;
+            if(temp1!=null)d1 = temp1.val;
+            if(temp2!=null)d2 = temp2.val;
+            int d = d1+d2+c;
+            c = d/10;
+            d = d%10;
+            dummyTemp.next = new ListNode(d);
+            dummyTemp = dummyTemp.next;
+            if(temp1!=null)temp1 = temp1.next;
+            if(temp2!=null)temp2 = temp2.next;
         }
-        return head;
+        return reverse(dummy.next);
     }
 }
