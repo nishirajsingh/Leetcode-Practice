@@ -3,10 +3,12 @@ class Solution {
         int a=-1,b=-1,l=0,h=nums.length-1;
         while(l<=h){
             int mid = l+(h-l)/2; 
-            if(nums[mid]<target)l = mid+1;
+            if(nums[mid]<target){
+                l = mid+1;
+            }
             else h = mid-1;
         }
-        a = l;
+        a=l;
         l=0;
         h = nums.length-1;
         while(l<=h){
