@@ -7,6 +7,5 @@ class Solution {
             if(temp[i]!=heights[i]) c++;
         }
         return c;
-
     }
 }
