@@ -1,30 +1,21 @@
 class Solution {
-    int [][]dp;
-    public int helper(int[] coins, int amount, int idx) {
-        if (amount < 0) return 100000000; 
-        if (idx == 0) {
-            if (amount % coins[0] == 0) {
-                return amount / coins[0];
-            } else {
-                return 100000000;
+    public int coinChange(int coins[], int amount) {
+        int[][] dp = new int[coins.length][amount+1];
+        Arrays.sort(coins);
+        for(int i=0;i<coins.length;i++)dp[i][0]=0;
+        for(int j=1;j<=amount;j++){
+            if(j%coins[0]==0){
+                dp[0][j]=j/coins[0];
+            }else dp[0][j]=amount+1;
+        }
+        for(int i=1;i<coins.length;i++){
+            for(int j=1;j<=amount;j++){
+                if(j>=coins[i]){
+                    dp[i][j]= Math.min(dp[i-1][j],dp[i][j-coins[i]]+1);
+                }else dp[i][j] = dp[i-1][j];
             }
         }
-        if (dp[idx][amount] != -1) return dp[idx][amount]; 
-        int take = 1 + helper(coins, amount - coins[idx], idx);
-        int notTake = helper(coins, amount, idx - 1);
-        return dp[idx][amount] = Math.min(take, notTake);  
-    }
-    public int coinChange(int coins[], int amount) {
-        dp = new int[coins.length][amount+1];
-        for(int[] x : dp) Arrays.fill(x,-1);
-        Arrays.sort(coins);
-        if (amount == 0) {
-            return 0;
-        }
-        int ans = helper(coins, amount, coins.length - 1);
-        if (ans >= 100000000) {
-            return -1;
-        }
-        return ans;
+        return dp[coins.length-1][amount]>amount? -1 : dp[coins.length-1][amount];
+        
     }
 }
