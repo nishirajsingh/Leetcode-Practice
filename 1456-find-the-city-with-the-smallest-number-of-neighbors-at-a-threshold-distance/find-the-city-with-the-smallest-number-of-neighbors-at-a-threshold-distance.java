@@ -16,7 +16,6 @@ class Solution {
         for(int k=0;k<n;k++){
             for(int i=0;i<n;i++){
                 for(int j=0;j<n;j++){
-                    if(dp[i][k] == 10000000 && dp[k][j]==10000000)continue;
                     dp[i][j]=Math.min(dp[i][j],dp[i][k]+dp[k][j]);
                 }
             }
